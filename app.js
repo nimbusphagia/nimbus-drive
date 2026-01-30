@@ -3,10 +3,10 @@ import { PrismaClient } from '@prisma/client/extension';
 import { PrismaSessionStore } from '@quixo3/prisma-session-store';
 import 'dotenv/config'
 import express from 'express';
-import passport from 'passport';
-import { Strategy } from 'passport-local';
 import path from 'path'
 import { fileURLToPath } from 'url';
+import passport from 'passport';
+import { initPassport } from './config/passport.js';
 // Route Imports
 
 // App setup
@@ -35,32 +35,14 @@ app.use(
     cookie: {
       maxAge: 7 * 24 * 60 * 60 * 1000 // ms
     },
-    secret: env.SECRET,
+    secret: process.env.SECRET,
     resave: true,
     saveUninitialized: true,
     store: prismaStore,
   })
 );
-// Passport setup
 
-async function verify(username, password, done) { }
-
-const localStrategy = new Strategy(verify);
-
-passport.use(localStrategy);
-
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-passport.deserializeUser(async (userId, done) => {
-  try {
-    const user = // await getUserById(userId);
-      done(null, user);
-  } catch (err) {
-    done(err);
-  }
-})
-
+//initPassport({getUserById})
 app.use(passport.session());
 
 // General middleware

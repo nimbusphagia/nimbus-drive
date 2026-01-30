@@ -18,3 +18,39 @@ model Session {
   data      String
   expiresAt DateTime
 }
+
+model User {
+  id            Int      @id @default(autoincrement())
+  username      String   @unique
+  password_hash String
+  img_url       String?
+  folders       Folder[]
+  files         File[]
+}
+
+model Folder {
+  id       Int      @id @default(autoincrement())
+  owner    User     @relation(fields: [ownerId], references: [id])
+  ownerId  Int
+  parent   Folder?  @relation("Folder Hierarchy", fields: [parentId], references: [id])
+  parentId Int?
+  folders  Folder[] @relation("Folder Hierarchy")
+  name     String
+  shareUrl String?
+  files    File[]
+
+  @@index([ownerId])
+  @@index([parentId])
+}
+
+model File {
+  id        Int      @id @default(autoincrement())
+  folder    Folder   @relation(fields: [folderId], references: [id])
+  folderId  Int
+  owner     User     @relation(fields: [ownerId], references: [id])
+  ownerId   Int
+  name      String
+  url       String
+  shareUrl  String?
+  createdAt DateTime @default(now())
+}
