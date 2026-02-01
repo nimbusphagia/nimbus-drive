@@ -1,0 +1,23 @@
+include partial/head
+  link(rel="stylesheet", href="/css/index.css")
+  link(rel="stylesheet", href="/css/navBar.css")
+  link(rel="stylesheet", href="/css/login.css")
+  title= 'Nimbusdrive'
+body(class='dashboardBody')
+  .wrapper
+    form(class="form loginForm", method="POST")
+      div(class='formTitle')
+        h1(id='logo') Nimbus Drive
+      include partial/errors
+      .formItem 
+        label(for='username') Username :
+        input(id='username', type='text', name="username", maxlength="30" required) 
+      .formItem 
+        label(for='password') Password :
+        input(id='password', type='password', name="password", maxlength="35" required) 
+      div(class='formButtons')
+        button(type='submit', class='createBtn btn') Login 
+        div(class='formRedirect')
+          p Don't have an account yet? 
+          a(href='/signup' class='') Sign up
+    include partial/footer

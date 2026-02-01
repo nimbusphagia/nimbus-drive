@@ -1,0 +1,34 @@
+.wrapper {
+  min-height: var(--minWrapper);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formItem label {
+  color: var(--Yellow);
+}
+
+.formItem input {
+  color: var(--Blue);
+}
+
+.formRedirect>* {
+  color: var(--Yellow);
+  font-size: 14px;
+}
+
+.formRedirect a {
+  color: var(--Blue);
+}
+
+.createBtn {
+  color: var(--Blue);
+  border-color: var(--Blue);
+}
+
+.createBtn:hover,
+.createBtn:focus {
+  color: var(--softPink);
+  border-color: var(--softPink);
+}

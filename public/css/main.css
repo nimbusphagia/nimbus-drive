@@ -1,0 +1,151 @@
+.dashboardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.wrapper {
+  display: flex;
+  min-height: calc(var(--minWrapper) - 40px);
+  margin: 0 15px;
+  gap: 15px;
+}
+
+/* Sidebar */
+#sideBar {
+  min-width: 200px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sideTools {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.treeContainer {
+  margin: 0 10px;
+}
+
+.treeBlock {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.treeBlock ul {
+  padding-left: 25px;
+}
+
+.treeBlock.collapsed {
+  display: none;
+}
+
+
+.treeLvl:not(:has(ul)) .arrowIcon {
+  visibility: hidden;
+}
+
+.treeFolder {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 5px;
+}
+
+.treeFolder a {
+  color: var(--softPurple);
+  font-family: 'Jetbrains Mono';
+  font-weight: 800;
+  font-size: 14px;
+  border-bottom: 2px solid var(--softPurple);
+
+}
+
+.folderIcon {
+  width: 18px;
+}
+
+.arrowIcon {
+  display: block;
+  width: 10px;
+  transition: transform 0.1s ease;
+}
+
+.arrowIcon:hover {
+  cursor: pointer;
+  transform: scale(1.3);
+}
+
+.arrowIcon.rotated {
+  transform: rotate(-90deg);
+}
+
+#treeRoot a {
+  font-size: 16px;
+  color: var(--Yellow);
+  border-color: var(--Yellow);
+}
+
+.treeBtn {
+  color: var(--softPink);
+  border-color: var(--softPink);
+}
+
+.treeBtn:hover,
+.treeBtn:focus {
+  color: var(--Blue);
+  border-color: var(--Blue);
+}
+
+/* Main */
+#main {
+  flex-grow: 1;
+  margin: 0 15px;
+}
+
+.mainHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mainTools {
+  display: flex;
+  gap: 10px;
+}
+
+.mainTools .btn {
+  font-size: 16px;
+}
+
+.newBtn {
+  color: var(--Purple);
+  border-color: var(--Purple);
+}
+
+.newBtn:hover,
+.newBtn:focus {
+  color: var(--Blue);
+  border-color: var(--Blue);
+}
+
+.shareBtn {
+  color: var(--Orange);
+  border-color: var(--Orange);
+}
+
+.shareBtn:hover,
+.shareBtn:focus {
+  color: var(--softGreen);
+  border-color: var(--softGreen);
+}
+
+.mainContainer {
+  width: 100%;
+  height: 100%;
+  margin: 15px;
+}
