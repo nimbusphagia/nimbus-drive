@@ -1,0 +1,9 @@
+form(method='post', action=`/drive/${currentFolder.id}/createFolder`, class='createFolder form invisible')
+  div(class='formTitle')
+    h1 New folder
+  .formItem 
+    label(for='name') Folder name:
+    input(id='name', type='text', name="name", maxlength="100" required) 
+  div(class='formButtons')
+    button(type='submit', class='btn') Add 
+      

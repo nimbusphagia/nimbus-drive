@@ -1,4 +1,4 @@
-import { getAllFiles, getFolderById, getRootFolder } from "../../db/queries.js";
+import { createFolder, getAllFiles, getFolderById, getRootFolder } from "../../db/queries.js";
 import { buildTree } from "../lib/utilites.js";
 
 export async function dashboardGet(req, res) {
@@ -9,14 +9,35 @@ export async function dashboardGet(req, res) {
     const tree = buildTree(folders);
     // Get current folder 
     const folderId = Number(req.params.folderId);
-    if (folderId === 0) {
+    if (folderId == 0) {
       const currentFolder = await getRootFolder(userId);
+      console.log(folderId, currentFolder);
       return res.render('mainView', { folders: tree, currentFolder: currentFolder });
     }
     const currentFolder = await getFolderById(folderId, userId);
     return res.render('mainView', { folders: tree, currentFolder: currentFolder });
+
   } catch (err) {
     console.log(err);
     return res.render('404', { errMsg: err.message });
+  }
+}
+
+export async function dashboardPost(req, res) {
+  const { action } = req.params;
+  const userId = req.user.id;
+  const folderId = Number(req.params.folderId);
+  const { name } = req.body;
+
+  try {
+    if (action === 'createFolder') {
+      const newFolder = await createFolder(userId, folderId, name)
+      return res.redirect(`/drive/${folderId}`);
+    }
+
+    return res.redirect('/drive/0')
+  } catch (error) {
+    console.error(error);
+    return res.render('404', { errMsg: error.message });
   }
 }

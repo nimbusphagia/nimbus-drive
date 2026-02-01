@@ -1,0 +1,45 @@
+/*General*/
+#curtain {
+  justify-content: center;
+  align-items: center
+}
+
+#curtain.form {
+  padding: 20px 30px;
+}
+
+#curtain .formItem {
+  grid-template-columns: 30% 70%;
+}
+
+#curtain .btn {
+  color: var(--Yellow);
+  border-color: var(--Yellow);
+}
+
+#curtain .btn:hover,
+#curtain .btn:focus {
+  color: var(--softPink);
+  border-color: var(--softPink);
+}
+
+/*Create Folder */
+
+.createFolder h1 {
+  font-family: var(--f3);
+  font-size: 30px;
+}
+
+.createFolder h1,
+.createFolder label,
+.createFolder button {
+  color: var(--Purple);
+  border-color: var(--Purple);
+}
+
+.createFolder input {
+  color: var(--softGreen);
+}
+
+.createFolder button:hover,
+.createFolder:focus {}

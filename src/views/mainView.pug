@@ -18,6 +18,7 @@ include partial/head
   link(rel="stylesheet", href="/css/index.css")
   link(rel="stylesheet", href="/css/navBar.css")
   link(rel="stylesheet", href="/css/main.css")
+  link(rel="stylesheet", href="/css/mainForms.css")
   title= 'Nimbusdrive'
 body(class='dashboardBody bgBody')
   include partial/nav
@@ -45,8 +46,11 @@ body(class='dashboardBody bgBody')
           each child in currentFolder.files
             div(class='node file')
               a(href=`/preview/${child.id}`)
-                img(src='/icons/document.png')
+                img(src='/icons/document(1).png')
                 p(class='nodeName')=child.name
                 .selectBlur 
   include partial/footer
+  #curtain.invisible
+    include partial/createFolder 
   script(src='/scripts/treeView.js')
+  script(src='/scripts/mainForms.js')

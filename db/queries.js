@@ -85,6 +85,8 @@ export async function getRootFolder(userId) {
       name: true,
       parentId: true,
       shareUrl: true,
+      folders: true,
+      files: true,
     }
   });
   return folder;

@@ -32,3 +32,7 @@
   color: var(--softPink);
   border-color: var(--softPink);
 }
+
+#nimbusLink {
+  color: var(--softPink);
+}
