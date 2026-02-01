@@ -65,6 +65,11 @@
 
 }
 
+.currentFolder a {
+  color: var(--softGreen);
+  border-color: var(--softGreen);
+}
+
 .folderIcon {
   width: 18px;
 }
@@ -113,6 +118,10 @@
   align-items: center;
 }
 
+.path h1 {
+  color: var(--softBlue);
+}
+
 .mainTools {
   display: flex;
   gap: 10px;
@@ -148,4 +157,66 @@
   width: 100%;
   height: 100%;
   margin: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 12px;
+}
+
+.node a {
+  aspect-ratio: 1/1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  gap: 10px;
+  padding: 5px 15px;
+  position: relative;
+  transition: transform ease-out 0.2s, border ease-out 0.1s;
+  border-bottom: 2px solid transparent;
+  border-right: 2px solid transparent;
+}
+
+.node p {
+  text-align: center;
+  font-family: 'Jetbrains Mono';
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 700;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.node img {
+  height: 100%;
+}
+
+.folder a {
+  color: var(--Blue);
+}
+
+.folder a:hover,
+.folder a:focus {
+  transform: scale(1.02);
+  border-color: var(--Yellow);
+  color: var(--Yellow);
+}
+
+.file a {
+  color: var(--softGreen);
+}
+
+.selectBlur {
+  background-color: transparent;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  transition: background-color ease 0.2s;
+  border-radius: 5px;
+}
+
+.selectBlur:hover,
+.selectBlur:focus {
+  background-color: rgb(255, 255, 255, 0.05);
 }

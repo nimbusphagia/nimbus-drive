@@ -5,14 +5,14 @@ mixin list(nodes, contClass)
         if(folder.parentId == null)
           div(class='treeFolder' id='treeRoot')
             img.arrowIcon(src='/icons/down-yellow.png')
-            a(href=`/drive/folders/${folder.id}` class='rotated')= folder.name
+            a(href=`/drive/${folder.id}` class='rotated')= folder.name
         else
-          div(class='treeFolder')
+          div(class=`treeFolder ${folder.id === currentFolder.id ? 'currentFolder' : ''}`)
             img.arrowIcon(src='/icons/down-purple.png')
-            a(href=`/drive/folders/${folder.id}`)= folder.name
+            a(href=`/drive/${folder.id}`)= folder.name
 
         if folder.children && folder.children.length
-          +list(folder.children, 'collapsed')
+          +list(folder.children, '')
 
 include partial/head
   link(rel="stylesheet", href="/css/index.css")
@@ -30,11 +30,23 @@ body(class='dashboardBody bgBody')
     main(id='main')
       .mainHeader 
         .path
-          h1= folders[0].name
+          h1= currentFolder.name
         .mainTools
           button(type='button', class='newBtn toolBtn btn') New folder
           button(type='button', class='shareBtn toolBtn btn') Share
       .mainContainer
-        
+        if(currentFolder.folders)
+          each child in currentFolder.folders
+            div(class='node folder')
+              a(href=`/drive/${child.id}`)
+                img(src='/icons/files.png')
+                p(class='nodeName')=child.name
+        if(currentFolder.files)
+          each child in currentFolder.files
+            div(class='node file')
+              a(href=`/preview/${child.id}`)
+                img(src='/icons/document.png')
+                p(class='nodeName')=child.name
+                .selectBlur 
   include partial/footer
   script(src='/scripts/treeView.js')

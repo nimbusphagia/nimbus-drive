@@ -1,7 +1,6 @@
 const tree = document.querySelector('.treeContainer');
 
 tree.addEventListener('click', (e) => {
-  e.preventDefault();
 
   const arrow = e.target.closest('.arrowIcon');
   if (!arrow) return;

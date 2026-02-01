@@ -16,7 +16,7 @@ export async function initializeUser(username, password) {
     await tx.folder.create({
       data: {
         ownerId: user.id,
-        name: "root"
+        name: "My drive"
       }
     });
 
@@ -62,4 +62,39 @@ export async function createFolder(userId, parentId, name) {
   return newFolder;
 }
 
+export async function getFolderById(folderId, userId) {
+  const folder = await prisma.folder.findFirstOrThrow({
+    where: { ownerId: userId, id: folderId },
+    select: {
+      id: true,
+      name: true,
+      parentId: true,
+      shareUrl: true,
+      folders: true,
+      files: true,
+    }
+  });
+  return folder;
+}
 
+export async function getRootFolder(userId) {
+  const folder = await prisma.folder.findFirstOrThrow({
+    where: { ownerId: userId, parentId: null },
+    select: {
+      id: true,
+      name: true,
+      parentId: true,
+      shareUrl: true,
+    }
+  });
+  return folder;
+}
+
+// Files
+
+export async function getFileByFolder(folderId, userId) {
+  const file = await prisma.file.findFirstOrThrow({
+    where: { ownerId: userId, folderId: folderId },
+  });
+  return file;
+}
