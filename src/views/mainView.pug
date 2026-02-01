@@ -1,0 +1,40 @@
+mixin list(nodes, contClass)
+  ul(class=`treeBlock ${contClass}`)
+    each folder in nodes
+      li.treeLvl
+        if(folder.parentId == null)
+          div(class='treeFolder' id='treeRoot')
+            img.arrowIcon(src='/icons/down-yellow.png')
+            a(href=`/drive/folders/${folder.id}` class='rotated')= folder.name
+        else
+          div(class='treeFolder')
+            img.arrowIcon(src='/icons/down-purple.png')
+            a(href=`/drive/folders/${folder.id}`)= folder.name
+
+        if folder.children && folder.children.length
+          +list(folder.children, 'collapsed')
+
+include partial/head
+  link(rel="stylesheet", href="/css/index.css")
+  link(rel="stylesheet", href="/css/navBar.css")
+  link(rel="stylesheet", href="/css/main.css")
+  title= 'Nimbusdrive'
+body(class='dashboardBody bgBody')
+  include partial/nav
+  .wrapper
+    div(id='sideBar' class='glass')
+      .sideTools
+        button(type='button', class='treeBtn btn') Upload file
+      .treeContainer
+        +list(folders, '')
+    main(id='main')
+      .mainHeader 
+        .path
+          h1= folders[0].name
+        .mainTools
+          button(type='button', class='newBtn toolBtn btn') New folder
+          button(type='button', class='shareBtn toolBtn btn') Share
+      .mainContainer
+        
+  include partial/footer
+  script(src='/scripts/treeView.js')

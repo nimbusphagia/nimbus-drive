@@ -1,0 +1,43 @@
+#logo {
+  color: var(--Blue);
+}
+
+.wrapper {
+  min-height: var(--minWrapper);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.createBtn {
+  color: var(--Yellow);
+  border-color: var(--Yellow);
+}
+
+.createBtn:hover,
+.createBtn:focus {
+  color: var(--softPink);
+  border-color: var(--softPink);
+}
+
+.formRedirect>* {
+  color: var(--Blue);
+  font-size: 14px;
+}
+
+.formRedirect a {
+  color: var(--Yellow);
+}
+
+#nimbusLink {
+  color: var(--Yellow);
+}
+
+.formItem label {
+  color: var(--Blue);
+}
+
+.formItem input {
+  color: var(--Yellow);
+}
