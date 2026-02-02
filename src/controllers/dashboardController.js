@@ -1,5 +1,6 @@
-import { createFolder, getAllFiles, getFolderById, getRootFolder } from "../../db/queries.js";
+import { createFile, createFolder, getAllFiles, getFolderById, getRootFolder } from "../../db/queries.js";
 import { buildTree } from "../lib/utilites.js";
+
 
 export async function dashboardGet(req, res) {
   try {
@@ -11,7 +12,6 @@ export async function dashboardGet(req, res) {
     const folderId = Number(req.params.folderId);
     if (folderId == 0) {
       const currentFolder = await getRootFolder(userId);
-      console.log(folderId, currentFolder);
       return res.render('mainView', { folders: tree, currentFolder: currentFolder });
     }
     const currentFolder = await getFolderById(folderId, userId);
@@ -31,10 +31,15 @@ export async function dashboardPost(req, res) {
 
   try {
     if (action === 'createFolder') {
-      const newFolder = await createFolder(userId, folderId, name)
+      await createFolder(userId, folderId, name)
       return res.redirect(`/drive/${folderId}`);
     }
-
+    if (action === 'createFile') {
+      const fileInput = req.file;
+      const file = await createFile(folderId, userId, req.file.originalname);
+      console.log(fileInput, file);
+      return res.redirect(`/drive/${folderId}`);
+    }
     return res.redirect('/drive/0')
   } catch (error) {
     console.error(error);

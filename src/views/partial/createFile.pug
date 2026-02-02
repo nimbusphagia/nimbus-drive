@@ -1,0 +1,8 @@
+form(method='post', action=`/drive/${currentFolder.id}/createFile`, class='createFile form invisible', enctype='multipart/form-data')
+  div(class='formTitle')
+    h1 New file
+  .formItem 
+    input(id='file', type='file', name="file", required) 
+  div(class='formButtons')
+    button(type='submit', class='btn') Upload 
+ 

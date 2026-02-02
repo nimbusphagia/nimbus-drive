@@ -1,6 +1,7 @@
 const main = document.querySelector('.wrapper');
 const curtain = document.getElementById('curtain');
 const createFolderForm = document.querySelector('.createFolder');
+const createFileForm = document.querySelector('.createFile');
 
 function toggleCurtain() {
   curtain.classList.toggle('invisible');
@@ -24,7 +25,10 @@ main.addEventListener('click', (e) => {
   // New folder
   if (btn.classList.contains('newBtn')) {
     toggleForm(createFolderForm);
+  } else if (btn.classList.contains('treeBtn')) {
+    toggleForm(createFileForm);
   }
+
 });
 curtain.addEventListener('click', (e) => {
   if (e.target !== curtain) return;

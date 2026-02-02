@@ -14,6 +14,7 @@ import dashboardRouter from './src/routes/dashboardRouter.js';
 import signUpRouter from './src/routes/signUpRouter.js';
 import loginRouter from './src/routes/loginRouter.js';
 import logoutRouter from './src/routes/logoutRouter.js';
+import previewRouter from './src/routes/previewRouter.js';
 
 // App setup
 const app = express();
@@ -61,6 +62,8 @@ app.use(dashboardRouter);
 app.use(signUpRouter);
 app.use(loginRouter);
 app.use(logoutRouter);
+app.use(previewRouter);
+
 // Error catching middleware
 app.use((err, req, res, next) => {
   const status = err.status || 500;

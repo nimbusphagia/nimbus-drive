@@ -6,30 +6,19 @@
 
 #curtain.form {
   padding: 20px 30px;
+  border-radius: 8px;
 }
 
 #curtain .formItem {
   grid-template-columns: 30% 70%;
 }
 
-#curtain .btn {
-  color: var(--Yellow);
-  border-color: var(--Yellow);
-}
-
-#curtain .btn:hover,
-#curtain .btn:focus {
-  color: var(--softPink);
-  border-color: var(--softPink);
-}
-
-/*Create Folder */
-
-.createFolder h1 {
+#curtain h1 {
   font-family: var(--f3);
   font-size: 30px;
 }
 
+/*Create Folder */
 .createFolder h1,
 .createFolder label,
 .createFolder button {
@@ -38,8 +27,42 @@
 }
 
 .createFolder input {
-  color: var(--softGreen);
+  color: var(--Yellow);
 }
 
-.createFolder button:hover,
-.createFolder:focus {}
+.createFolder .btn {
+  color: var(--Yellow);
+  border-color: var(--Yellow);
+}
+
+.createFolder .btn:hover,
+.createFolder .btn:focus {
+  color: var(--softPink);
+  border-color: var(--softPink);
+}
+
+
+/* Create File */
+
+.createFile .formItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.createFile h1,
+.createFile label,
+.createFile button {
+  color: var(--Blue);
+  border-color: var(--Blue);
+}
+
+.createFile input {
+  color: var(--Blue);
+}
+
+.createFile .btn:hover,
+.createFile .btn:focus {
+  color: var(--Yellow);
+  border-color: var(--Yellow);
+}

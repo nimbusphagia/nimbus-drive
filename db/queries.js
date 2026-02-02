@@ -93,10 +93,43 @@ export async function getRootFolder(userId) {
 }
 
 // Files
-
+export async function getFileById(fileId, userId) {
+  const file = await prisma.file.findUnique({
+    where: {
+      id: fileId,
+      ownerId: userId,
+    },
+    select: {
+      id: true,
+      owner: {
+        select: {
+          username: true,
+          id: true,
+        }
+      },
+      name: true,
+      shareUrl: true,
+      createdAt: true,
+      folder: true,
+    }
+  });
+  return file;
+}
 export async function getFileByFolder(folderId, userId) {
   const file = await prisma.file.findFirstOrThrow({
     where: { ownerId: userId, folderId: folderId },
   });
   return file;
 }
+
+export async function createFile(folderId, userId, name, url = 'emptyUrl') {
+  return await prisma.file.create({
+    data: {
+      folderId,
+      ownerId: userId,
+      name,
+      url,
+    },
+  });
+}
+
