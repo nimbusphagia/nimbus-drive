@@ -10,6 +10,7 @@
 }
 
 #curtain .formItem {
+  margin: 0 15px;
   grid-template-columns: 30% 70%;
 }
 
@@ -27,20 +28,13 @@
 }
 
 .createFolder input {
-  color: var(--Yellow);
+  color: var(--Purple);
 }
 
 .createFolder .btn {
-  color: var(--Yellow);
-  border-color: var(--Yellow);
+  color: var(--Purple);
+  border-color: var(--Purple);
 }
-
-.createFolder .btn:hover,
-.createFolder .btn:focus {
-  color: var(--softPink);
-  border-color: var(--softPink);
-}
-
 
 /* Create File */
 
@@ -53,16 +47,48 @@
 .createFile h1,
 .createFile label,
 .createFile button {
-  color: var(--Blue);
-  border-color: var(--Blue);
+  color: var(--softPink);
+  border-color: var(--softPink);
 }
 
 .createFile input {
-  color: var(--Blue);
+  color: var(--softPink);
 }
 
-.createFile .btn:hover,
-.createFile .btn:focus {
-  color: var(--Yellow);
-  border-color: var(--Yellow);
+/* Edit Folder */
+
+.editFolder h1,
+.editFolder label,
+.editFolder button {
+  color: var(--softGreen);
+  border-color: var(--softGreen);
+}
+
+.editFolder input {
+  color: var(--softGreen);
+}
+
+/* Delete Folder */
+.deleteFolder {
+  width: 100px;
+  gap: 10px;
+}
+
+.deleteFolder button {
+  border-right: transparent;
+  border-bottom-width: 3px;
+}
+
+.deleteFolder h1,
+.deleteFolder p,
+.deleteFolder button {
+  color: var(--Red);
+  border-color: var(--Red);
+  border-radius: 0;
+}
+
+.deleteFolder p {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 900;
 }

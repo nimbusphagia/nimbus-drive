@@ -281,12 +281,6 @@ p {
 }
 
 .deleteBtn {
-  color: var(--Blue);
-  border-color: var(--Blue);
-}
-
-.deleteBtn:hover,
-.deleteBtn:focus {
   color: var(--Red);
   border-color: var(--Red);
 }
@@ -297,4 +291,8 @@ p {
 
 .flex {
   display: flex;
+}
+
+.fakeBtn {
+  border: none;
 }

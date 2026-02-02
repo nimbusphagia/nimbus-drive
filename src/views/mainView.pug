@@ -31,7 +31,11 @@ body(class='dashboardBody bgBody')
     main(id='main')
       .mainHeader 
         .path
-          h1= currentFolder.name
+          .pathName
+            h1= currentFolder.name
+          .pathBtns
+            button(type='button', class='fakeBtn editBtn'): img(src='/icons/pen.png')
+            button(type='button', class='fakeBtn deleteBtn'): img(src='/icons/bin.png')
         .mainTools
           button(type='button', class='newBtn toolBtn btn') New folder
           button(type='button', class='shareBtn toolBtn btn') Share
@@ -52,6 +56,8 @@ body(class='dashboardBody bgBody')
   include partial/footer
   #curtain.invisible
     include partial/createFolder 
+    include partial/editFolder 
+    include partial/deleteFolder 
     include partial/createFile 
   script(src='/scripts/treeView.js')
   script(src='/scripts/mainForms.js')

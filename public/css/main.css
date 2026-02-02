@@ -101,12 +101,6 @@
   border-color: var(--softPink);
 }
 
-.treeBtn:hover,
-.treeBtn:focus {
-  color: var(--Yellow);
-  border-color: var(--Yellow);
-}
-
 /* Main */
 #main {
   flex-grow: 1;
@@ -120,8 +114,40 @@
 }
 
 .path h1 {
+  font-family: var(--f3);
+  font-size: 30px;
   color: var(--softBlue);
 }
+
+.path {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.pathName {
+  padding: 0;
+  margin-bottom: 9px;
+}
+
+.pathBtns {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pathBtns button {
+  transition: transform ease-out 0.2s;
+}
+
+.pathBtns button:hover {
+  transform: scale(1.1);
+}
+
+.pathBtns img {
+  width: 20px;
+}
+
 
 .mainTools {
   display: flex;
@@ -137,21 +163,9 @@
   border-color: var(--Purple);
 }
 
-.newBtn:hover,
-.newBtn:focus {
-  color: var(--Blue);
-  border-color: var(--Blue);
-}
-
 .shareBtn {
   color: var(--Orange);
   border-color: var(--Orange);
-}
-
-.shareBtn:hover,
-.shareBtn:focus {
-  color: var(--softGreen);
-  border-color: var(--softGreen);
 }
 
 .mainContainer {
