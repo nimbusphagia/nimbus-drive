@@ -1,8 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 generator client {
   provider = "prisma-client-js"
 }
@@ -16,6 +14,8 @@ model Session {
   sid       String   @unique
   data      String
   expiresAt DateTime
+
+  @@index([expiresAt]) // cleanup / cron jobs
 }
 
 model User {
@@ -35,22 +35,52 @@ model Folder {
   parentId Int?
   folders  Folder[] @relation("Folder Hierarchy")
   name     String
-  shareUrl String?
-  files    File[]
 
-  @@index([ownerId])
-  @@index([parentId])
+  publicUrl   PublicUrl? @relation(fields: [publicUrlId], references: [id])
+  publicUrlId Int?       @unique
+
+  files File[]
+
+  @@index([ownerId]) // list user folders
+  @@index([parentId]) // folder tree traversal
+  @@index([publicUrlId]) // public folder lookup
+  @@index([ownerId, parentId]) // common "list children" query
 }
 
 model File {
-  id        Int      @id @default(autoincrement())
-  folder    Folder   @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  id        Int     @id @default(autoincrement())
+  folder    Folder  @relation(fields: [folderId], references: [id], onDelete: Cascade)
   folderId  Int
-  owner     User     @relation(fields: [ownerId], references: [id])
+  owner     User    @relation(fields: [ownerId], references: [id])
   ownerId   Int
   name      String
   extension String?
   url       String
-  shareUrl  String?
+
+  publicUrl   PublicUrl? @relation(fields: [publicUrlId], references: [id])
+  publicUrlId Int?       @unique
+
   createdAt DateTime @default(now())
+
+  @@index([folderId]) // list files in folder
+  @@index([ownerId]) // user files
+  @@index([publicUrlId]) // public file lookup
+  @@index([folderId, name]) // filename lookup inside folder
+}
+
+model PublicUrl {
+  id        Int           @id @default(autoincrement())
+  hash      String        @unique
+  type      PublicUrlType
+  createdAt DateTime      @default(now())
+  folder    Folder?
+  file      File?
+
+  @@index([hash]) // public route lookup
+  @@index([type]) // optional filtering / debugging
+}
+
+enum PublicUrlType {
+  FILE
+  FOLDER
 }

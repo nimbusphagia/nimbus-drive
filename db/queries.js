@@ -147,3 +147,15 @@ export async function createFile(folderId, userId, name, url = 'emptyUrl') {
   });
 }
 
+// Public Link
+
+export async function getByPublic(publicHash) {
+  const publicUrl = await prisma.publicUrl.find({ where: { hash: publicHash } });
+  if (publicUrl.type === 'FILE') {
+    return await prisma.file.findUniqueOrThrow({ where: { publicUrlId: publicUrl.id } });
+  }
+  if (publicUrl.type === 'FOLDER') {
+    return await prisma.folder.findUniqueOrThrow({ where: { publicUrlId: publicUrl.id } });
+  }
+  throw new Error('Invalid url');
+}

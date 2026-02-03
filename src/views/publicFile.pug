@@ -1,0 +1,17 @@
+include partial/head
+  link(rel="stylesheet", href="/css/index.css")
+  link(rel="stylesheet", href="/css/navBar.css")
+  link(rel="stylesheet", href="/css/preview.css")
+  title= 'Nimbusdrive'
+body(class='previewBody')
+  include partial/nav
+  .wrapper
+    main(id='preview' class='glass')
+      .fileContainer
+        .fileHeader
+          .title
+            h1=file.name 
+        .file
+          img(src='/icons/1-kanagawa.jpg')
+  include partial/footer
+  #curtain.invisible
