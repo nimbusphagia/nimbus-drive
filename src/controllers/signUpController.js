@@ -2,6 +2,9 @@ import { initializeUser } from "../../db/queries.js";
 
 export async function signUpGet(req, res) {
   try {
+    if (req.user) {
+      return res.redirect('/');
+    }
     return res.render('signUp');
   } catch (error) {
     console.log(error);

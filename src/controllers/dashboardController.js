@@ -1,5 +1,5 @@
-import { createFile, createFolder, deleteFolder, getAllFiles, getFolderById, getRootFolder, updateFolder } from "../../db/queries.js";
-import { buildTree } from "../lib/utilites.js";
+import { createFile, createFolder, createPublicUrl, deleteFolder, getAllFiles, getFolderById, getRootFolder, updateFolder } from "../../db/queries.js";
+import { buildTree, getBaseUrl } from "../lib/utilites.js";
 
 
 export async function dashboardGet(req, res) {
@@ -10,12 +10,18 @@ export async function dashboardGet(req, res) {
     const tree = buildTree(folders);
     // Get current folder 
     const folderId = Number(req.params.folderId);
+    // Get public url
+    const baseUrl = getBaseUrl(req);
+    // Initialize folder
+    let currentFolder;
     if (folderId == 0) {
-      const currentFolder = await getRootFolder(userId);
-      return res.render('mainView', { folders: tree, currentFolder: currentFolder });
+      currentFolder = await getRootFolder(userId);
+    } else {
+      currentFolder = await getFolderById(folderId, userId);
     }
-    const currentFolder = await getFolderById(folderId, userId);
-    return res.render('mainView', { folders: tree, currentFolder: currentFolder });
+    if (!currentFolder) throw new Error("Folder doesn't exist");
+    const publicUrl = `${baseUrl}/public/folder/${currentFolder.publicUrl.hash}`;
+    return res.render('mainView', { folders: tree, currentFolder, publicUrl });
 
   } catch (err) {
     console.log(err);
@@ -31,12 +37,14 @@ export async function dashboardPost(req, res) {
 
   try {
     if (action === 'createFolder') {
-      await createFolder(userId, folderId, name)
+      const publicUrl = await createPublicUrl('FOLDER');
+      await createFolder(userId, folderId, name, publicUrl.id);
       return res.redirect(`/drive/${folderId}`);
     }
     if (action === 'createFile') {
       const fileInput = req.file;
-      const file = await createFile(folderId, userId, req.file.originalname);
+      const publicUrl = await createPublicUrl('FILE');
+      const file = await createFile(folderId, userId, req.file.originalname, 'emptyurl', publicUrl.id);
       return res.redirect(`/drive/${folderId}`);
     }
     if (action === 'editFolder') {

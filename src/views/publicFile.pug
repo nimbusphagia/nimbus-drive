@@ -4,13 +4,16 @@ include partial/head
   link(rel="stylesheet", href="/css/preview.css")
   title= 'Nimbusdrive'
 body(class='previewBody')
-  include partial/nav
+  include partial/publicNav
   .wrapper
     main(id='preview' class='glass')
       .fileContainer
         .fileHeader
           .title
             h1=file.name 
+          .fileTools
+            a(href=``): img(src='/icons/download(2).png')
+
         .file
           img(src='/icons/1-kanagawa.jpg')
   include partial/footer

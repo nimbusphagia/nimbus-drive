@@ -1,9 +1,10 @@
 import { prisma } from "./prisma.js";
 import bcrypt from 'bcrypt';
+import { nanoid } from "nanoid";
 
 // General
 export async function initializeUser(username, password) {
-  const passwordHash = awaitbcrypt.hash(password, 10);
+  const passwordHash = await bcrypt.hash(password, 10);
 
   return prisma.$transaction(async (tx) => {
     const user = await tx.user.create({
@@ -37,6 +38,17 @@ export async function getAllFiles(userId) {
   return folders;
 }
 
+export async function createPublicUrl(type) {
+  if (type !== 'FILE' && type !== 'FOLDER') throw new Error('Error creating public url');
+  const publicUrl = await prisma.publicUrl.create({
+    data: {
+      hash: nanoid(16),
+      type: type
+    }
+  });
+  return publicUrl;
+}
+
 // Users
 export async function getUserByUsername(username) {
   return await prisma.user.findUnique({
@@ -51,12 +63,13 @@ export async function getUserById(id) {
 }
 
 // Folders
-export async function createFolder(userId, parentId, name) {
+export async function createFolder(userId, parentId, name, publicUrlId) {
   const newFolder = await prisma.folder.create({
     data: {
       ownerId: userId,
       parentId: parentId,
       name: name,
+      publicUrlId: publicUrlId,
     }
   });
   return newFolder;
@@ -66,13 +79,24 @@ export async function getFolderById(folderId, userId) {
   const folder = await prisma.folder.findFirstOrThrow({
     where: { ownerId: userId, id: folderId },
     select: {
-      id: true,
       name: true,
-      parentId: true,
-      shareUrl: true,
-      folders: true,
-      files: true,
-    }
+      id: true,
+      folders: {
+        select: {
+          name: true,
+          id: true,
+          publicUrl: { select: { hash: true } }
+        }
+      },
+      files: {
+        select: {
+          name: true,
+          id: true,
+          publicUrl: { select: { hash: true } }
+        }
+      },
+      publicUrl: { select: { hash: true } },
+    },
   });
   return folder;
 }
@@ -81,12 +105,25 @@ export async function getRootFolder(userId) {
   const folder = await prisma.folder.findFirstOrThrow({
     where: { ownerId: userId, parentId: null },
     select: {
-      id: true,
       name: true,
-      parentId: true,
-      shareUrl: true,
-      folders: true,
-      files: true,
+      id: true,
+      folders: {
+        select: {
+          name: true,
+          id: true,
+          publicUrl: { select: { hash: true } }
+        }
+      },
+      files: {
+        select: {
+          name: true,
+          id: true,
+          publicUrl: { select: { hash: true } }
+        }
+      },
+      publicUrl: {
+        select: { hash: true }
+      },
     }
   });
   return folder;
@@ -122,7 +159,11 @@ export async function getFileById(fileId, userId) {
         }
       },
       name: true,
-      shareUrl: true,
+      publicUrl: {
+        select: {
+          hash: true,
+        },
+      },
       createdAt: true,
       folder: true,
     }
@@ -136,26 +177,56 @@ export async function getFileByFolder(folderId, userId) {
   return file;
 }
 
-export async function createFile(folderId, userId, name, url = 'emptyUrl') {
+export async function createFile(folderId, userId, name, url = 'emptyUrl', publicUrlId) {
   return await prisma.file.create({
     data: {
       folderId,
       ownerId: userId,
       name,
       url,
+      publicUrlId,
     },
   });
 }
 
 // Public Link
 
-export async function getByPublic(publicHash) {
-  const publicUrl = await prisma.publicUrl.find({ where: { hash: publicHash } });
+export async function getFileByPublic(publicHash) {
+  const publicUrl = await prisma.publicUrl.findUniqueOrThrow({ where: { hash: publicHash } });
   if (publicUrl.type === 'FILE') {
     return await prisma.file.findUniqueOrThrow({ where: { publicUrlId: publicUrl.id } });
   }
+  throw new Error('Invalid url');
+}
+export async function getFolderByPublic(publicHash) {
+  const publicUrl = await prisma.publicUrl.findUniqueOrThrow({ where: { hash: publicHash } });
   if (publicUrl.type === 'FOLDER') {
-    return await prisma.folder.findUniqueOrThrow({ where: { publicUrlId: publicUrl.id } });
+    return await prisma.folder.findUniqueOrThrow({
+      where: { publicUrlId: publicUrl.id },
+      select: {
+        name: true,
+        id: true,
+        folders: {
+          select: {
+            name: true,
+            id: true,
+            publicUrl: {
+              select: { hash: true },
+            },
+          },
+        },
+        files: {
+          select: {
+            name: true,
+            id: true,
+            publicUrl: {
+              select: { hash: true },
+            },
+          },
+        },
+        publicUrl: true,
+      }
+    });
   }
   throw new Error('Invalid url');
 }

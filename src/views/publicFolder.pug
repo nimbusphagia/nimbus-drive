@@ -1,0 +1,34 @@
+-const publicFile = (file) => `${baseUrl}/public/file/${file.publicUrl.hash}`;
+-const publicFolder = (folder)=>`${baseUrl}/public/folder/${folder.publicUrl.hash}`;
+
+include partial/head
+  link(rel="stylesheet", href="/css/index.css")
+  link(rel="stylesheet", href="/css/navBar.css")
+  link(rel="stylesheet", href="/css/main.css")
+  link(rel="stylesheet", href="/css/mainForms.css")
+  title= 'Nimbusdrive'
+body(class='dashboardBody bgBody')
+  include partial/publicNav
+  .wrapper
+    main(id='main')
+      .mainHeader 
+        .path
+          .pathName
+            h1= folder.name
+        .mainTools
+      .mainContainer
+        if(folder.folders)
+          each child in folder.folders
+            div(class='node folder')
+              a(href=publicFolder(child))
+                img(src='/icons/files.png')
+                p(class='nodeName')=child.name
+        if(folder.files)
+          each child in folder.files
+            div(class='node file')
+              a(href=publicFile(child))
+                img(src='/icons/document(1).png')
+                p(class='nodeName')=child.name
+                .selectBlur 
+  include partial/footer
+  

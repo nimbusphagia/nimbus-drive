@@ -15,6 +15,7 @@ import signUpRouter from './src/routes/signUpRouter.js';
 import loginRouter from './src/routes/loginRouter.js';
 import logoutRouter from './src/routes/logoutRouter.js';
 import previewRouter from './src/routes/previewRouter.js';
+import publicRouter from './src/routes/publicRouter.js';
 
 // App setup
 const app = express();
@@ -52,8 +53,10 @@ app.use(
 initPassport();
 app.use(passport.session());
 
-// General middleware
+// Public access
+app.use(publicRouter);
 
+// Force Auth
 app.use(isAuth);
 
 // Routing
