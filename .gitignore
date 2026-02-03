@@ -2,5 +2,5 @@
 .gitignore
 .git
 node_modules
-
+/uploads
 /generated/prisma

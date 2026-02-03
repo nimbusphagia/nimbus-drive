@@ -37,7 +37,6 @@ export async function dashboardPost(req, res) {
     if (action === 'createFile') {
       const fileInput = req.file;
       const file = await createFile(folderId, userId, req.file.originalname);
-      console.log(fileInput, file);
       return res.redirect(`/drive/${folderId}`);
     }
     if (action === 'editFolder') {

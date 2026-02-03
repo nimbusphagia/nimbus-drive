@@ -1,5 +1,9 @@
+.bgBody {
+  background-image: url('/bg/shapes2.jpg');
+}
+
 #logo {
-  color: var(--Blue);
+  color: var(--softBlue);
 }
 
 .wrapper {
@@ -9,35 +13,38 @@
   align-items: center;
 }
 
+.loginForm {
+  padding: 30px 45px;
+}
 
 .createBtn {
-  color: var(--Yellow);
-  border-color: var(--Yellow);
+  color: var(--softBlue);
+  border-color: var(--softBlue);
 }
 
-.createBtn:hover,
-.createBtn:focus {
-  color: var(--softPink);
-  border-color: var(--softPink);
-}
 
 .formRedirect>* {
-  color: var(--Blue);
+  color: var(--softBlue);
   font-size: 14px;
 }
 
 .formRedirect a {
-  color: var(--Yellow);
+  color: var(--softBlue);
 }
 
 #nimbusLink {
-  color: var(--softPink);
+  color: var(--Yellow);
 }
 
 .formItem label {
-  color: var(--Blue);
+  color: var(--softBlue);
+  font-size: 18px;
 }
 
 .formItem input {
   color: var(--Yellow);
+}
+
+.formButtons {
+  gap: 20px;
 }

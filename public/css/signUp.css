@@ -1,3 +1,7 @@
+.bgBody {
+  background-image: url('/bg/shapes1.jpg');
+}
+
 .wrapper {
   min-height: var(--minWrapper);
   display: flex;
@@ -5,12 +9,18 @@
   align-items: center;
 }
 
+.signUpForm {
+  padding: 30px 45px;
+  min-width: 500px;
+}
+
 .formItem label {
   color: var(--Yellow);
+  font-size: 18px;
 }
 
 .formItem input {
-  color: var(--Blue);
+  color: var(--Yellow);
 }
 
 .formRedirect>* {
@@ -19,18 +29,16 @@
 }
 
 .formRedirect a {
-  color: var(--Blue);
+  color: var(--Yellow);
+}
+
+.formButtons {
+  gap: 20px;
 }
 
 .createBtn {
-  color: var(--Blue);
-  border-color: var(--Blue);
-}
-
-.createBtn:hover,
-.createBtn:focus {
-  color: var(--softPink);
-  border-color: var(--softPink);
+  color: var(--Yellow);
+  border-color: var(--Yellow);
 }
 
 #nimbusLink {
