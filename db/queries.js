@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 
 // General
 export async function initializeUser(username, password) {
-  const passwordHash = await bcrypt.hash(password, 10);
+  const passwordHash = awaitbcrypt.hash(password, 10);
 
   return prisma.$transaction(async (tx) => {
     const user = await tx.user.create({
@@ -90,6 +90,20 @@ export async function getRootFolder(userId) {
     }
   });
   return folder;
+}
+
+export async function updateFolder(folderId, userId, name) {
+  const updatedFolder = await prisma.folder.update({
+    where: { id: folderId, ownerId: userId },
+    data: { name: name },
+  });
+  return updatedFolder;
+}
+
+export async function deleteFolder(folderId, userId) {
+  await prisma.folder.delete({
+    where: { id: folderId, ownerId: userId },
+  })
 }
 
 // Files

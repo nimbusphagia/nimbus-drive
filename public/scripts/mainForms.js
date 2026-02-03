@@ -2,6 +2,7 @@ const main = document.querySelector('.wrapper');
 const curtain = document.getElementById('curtain');
 const createFolderForm = document.querySelector('.createFolder');
 const editFolderForm = document.querySelector('.editFolder');
+const shareFolderForm = document.querySelector('.shareFolder');
 const deleteFolderForm = document.querySelector('.deleteFolder');
 const createFileForm = document.querySelector('.createFile');
 
@@ -26,10 +27,12 @@ main.addEventListener('click', (e) => {
   const btn = e.target.closest('.btn');
   const fakeBtn = e.target.closest('.fakeBtn');
   if (btn) {
-    if (btn.classList.contains('newBtn')) {
+    if (btn.classList.contains('treeBtn')) {
       // New folder
       toggleForm(createFolderForm);
-    } else if (btn.classList.contains('treeBtn')) {
+    } else if (btn.classList.contains('shareBtn')) {
+      toggleForm(shareFolderForm);
+    } else if (btn.classList.contains('newBtn')) {
       // New file
       toggleForm(createFileForm);
     }

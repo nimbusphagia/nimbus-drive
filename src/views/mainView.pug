@@ -25,7 +25,7 @@ body(class='dashboardBody bgBody')
   .wrapper
     div(id='sideBar' class='glass')
       .sideTools
-        button(type='button', class='treeBtn btn') Upload file
+        button(type='button', class='treeBtn btn') New folder
       .treeContainer
         +list(folders, '')
     main(id='main')
@@ -35,9 +35,10 @@ body(class='dashboardBody bgBody')
             h1= currentFolder.name
           .pathBtns
             button(type='button', class='fakeBtn editBtn'): img(src='/icons/pen.png')
-            button(type='button', class='fakeBtn deleteBtn'): img(src='/icons/bin.png')
+            if(currentFolder.parentId != null)
+              button(type='button', class='fakeBtn deleteBtn'): img(src='/icons/bin.png')
         .mainTools
-          button(type='button', class='newBtn toolBtn btn') New folder
+          button(type='button', class='newBtn toolBtn btn') Upload 
           button(type='button', class='shareBtn toolBtn btn') Share
       .mainContainer
         if(currentFolder.folders)
@@ -57,6 +58,7 @@ body(class='dashboardBody bgBody')
   #curtain.invisible
     include partial/createFolder 
     include partial/editFolder 
+    include partial/shareFolder 
     include partial/deleteFolder 
     include partial/createFile 
   script(src='/scripts/treeView.js')

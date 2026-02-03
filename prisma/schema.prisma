@@ -31,7 +31,7 @@ model Folder {
   id       Int      @id @default(autoincrement())
   owner    User     @relation(fields: [ownerId], references: [id])
   ownerId  Int
-  parent   Folder?  @relation("Folder Hierarchy", fields: [parentId], references: [id])
+  parent   Folder?  @relation("Folder Hierarchy", fields: [parentId], references: [id], onDelete: Cascade)
   parentId Int?
   folders  Folder[] @relation("Folder Hierarchy")
   name     String
@@ -44,11 +44,12 @@ model Folder {
 
 model File {
   id        Int      @id @default(autoincrement())
-  folder    Folder   @relation(fields: [folderId], references: [id])
+  folder    Folder   @relation(fields: [folderId], references: [id], onDelete: Cascade)
   folderId  Int
   owner     User     @relation(fields: [ownerId], references: [id])
   ownerId   Int
   name      String
+  extension String?
   url       String
   shareUrl  String?
   createdAt DateTime @default(now())

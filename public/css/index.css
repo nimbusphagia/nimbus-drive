@@ -24,7 +24,7 @@ body {
   --navHeight: 55px;
   --fooHeight: 60px;
   --minWrapper: calc(100vh - (var(--fooHeight) + var(--navHeight)));
-  --box1: rgba(50, 50, 93, 0.15) 0px 2px 5px -1px, rgba(0, 0, 0, 0.1) 0px 1px 3px -1px;
+  --box1: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.2) 0px 1px 3px -1px;
   --box2: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   --f1: 'Calive';
   --f2: 'Oi';
@@ -246,12 +246,12 @@ p {
 }
 
 .btn {
-  padding: 3px 15px;
+  padding: 5px 18px;
   border: none;
-  border-radius: 3px;
+  border-radius: 5px;
   background-color: transparent;
-  border-right: 2px solid transparent;
-  border-bottom: 2px solid transparent;
+  border-right: 2.5px solid transparent;
+  border-bottom: 2.5px solid transparent;
   transition: box-shadow 0.1s ease-out, transform 0.2s ease-out;
   font-family: 'Calive';
   font-size: 20px;
@@ -262,6 +262,9 @@ p {
 .btn:focus {
   box-shadow: var(--box1);
   transform: scale(1.03);
+  background-color: rgb(255, 255, 255, 0.01);
+  border-top-color: rgb(255, 255, 255, 0.01);
+  border-left: rgb(255, 255, 255, 0.01);
 }
 
 .neutralBtn {

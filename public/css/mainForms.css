@@ -23,17 +23,17 @@
 .createFolder h1,
 .createFolder label,
 .createFolder button {
-  color: var(--Purple);
-  border-color: var(--Purple);
+  color: var(--Blue);
+  border-color: var(--Blue);
 }
 
 .createFolder input {
-  color: var(--Purple);
+  color: var(--Blue);
 }
 
 .createFolder .btn {
-  color: var(--Purple);
-  border-color: var(--Purple);
+  color: var(--Blue);
+  border-color: var(--Blue);
 }
 
 /* Create File */
@@ -47,12 +47,12 @@
 .createFile h1,
 .createFile label,
 .createFile button {
-  color: var(--softPink);
-  border-color: var(--softPink);
+  color: var(--Blue);
+  border-color: var(--Blue);
 }
 
 .createFile input {
-  color: var(--softPink);
+  color: var(--Blue);
 }
 
 /* Edit Folder */
@@ -75,20 +75,31 @@
 }
 
 .deleteFolder button {
-  border-right: transparent;
-  border-bottom-width: 3px;
-}
-
-.deleteFolder h1,
-.deleteFolder p,
-.deleteFolder button {
   color: var(--Red);
   border-color: var(--Red);
-  border-radius: 0;
+}
+
+
+.deleteFolder h1 {
+  color: var(--Red);
 }
 
 .deleteFolder p {
+  color: rgb(255, 255, 255, 0.7);
   text-align: center;
   font-size: 18px;
   font-weight: 900;
+}
+
+/* Share folder */
+.shareFolder {
+  padding-bottom: 10px;
+  padding-bottom: 50px;
+  gap: 30px;
+}
+
+.shareFolder h1,
+.shareFolder label,
+.shareFolder input {
+  color: var(--softPink);
 }

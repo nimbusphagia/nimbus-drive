@@ -17,8 +17,9 @@
   height: fit-content;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
   transition: width ease-in-out 0.3s;
+  padding: 10px 0 15px 0;
 }
 
 .sideTools {
@@ -97,8 +98,21 @@
 }
 
 .treeBtn {
-  color: var(--softPink);
-  border-color: var(--softPink);
+  color: var(--Blue);
+  background-color: rgb(0, 0, 0, 0.08);
+  border-color: rgb(0, 0, 0, 0.08);
+  box-shadow: var(--box1);
+  border-radius: 5px;
+  font-size: 24px;
+  padding: 8px 15px;
+  padding-bottom: 10px;
+  font-weight: 500;
+  line-height: 1;
+  font-family: var(--f3);
+}
+
+.treeBtn:hover {
+  background-color: rgb(255, 255, 255, 0.1);
 }
 
 /* Main */
@@ -116,7 +130,7 @@
 .path h1 {
   font-family: var(--f3);
   font-size: 30px;
-  color: var(--softBlue);
+  color: var(--Yellow);
 }
 
 .path {
@@ -159,13 +173,13 @@
 }
 
 .newBtn {
-  color: var(--Purple);
-  border-color: var(--Purple);
+  color: var(--Blue);
+  border-color: var(--uellow);
 }
 
 .shareBtn {
-  color: var(--Orange);
-  border-color: var(--Orange);
+  color: var(--softPink);
+  border-color: var(--softPink);
 }
 
 .mainContainer {
@@ -183,9 +197,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 8px;
   gap: 10px;
-  padding: 5px 15px;
+  padding: 10px 15px;
   position: relative;
   transition: transform ease-out 0.2s, border ease-out 0.1s;
   border-bottom: 2px solid transparent;
@@ -202,7 +216,7 @@
 }
 
 .node img {
-  height: 100%;
+  height: 60px;
 }
 
 .folder a {
@@ -212,8 +226,9 @@
 .folder a:hover,
 .folder a:focus {
   transform: scale(1.02);
-  border-color: var(--Yellow);
-  color: var(--Yellow);
+  border-color: transparent;
+  color: var(--Blue);
+  font-weight: bold;
 }
 
 .file a {

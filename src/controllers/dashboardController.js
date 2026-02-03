@@ -1,4 +1,4 @@
-import { createFile, createFolder, getAllFiles, getFolderById, getRootFolder } from "../../db/queries.js";
+import { createFile, createFolder, deleteFolder, getAllFiles, getFolderById, getRootFolder, updateFolder } from "../../db/queries.js";
 import { buildTree } from "../lib/utilites.js";
 
 
@@ -39,6 +39,15 @@ export async function dashboardPost(req, res) {
       const file = await createFile(folderId, userId, req.file.originalname);
       console.log(fileInput, file);
       return res.redirect(`/drive/${folderId}`);
+    }
+    if (action === 'editFolder') {
+      const newName = req.body.name;
+      await updateFolder(folderId, userId, newName);
+      return res.redirect(`/drive/${folderId}`);
+    }
+    if (action === 'deleteFolder') {
+      await deleteFolder(folderId, userId);
+      return res.redirect(`/drive/0`);
     }
     return res.redirect('/drive/0')
   } catch (error) {
