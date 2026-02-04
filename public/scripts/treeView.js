@@ -5,7 +5,10 @@ function toggleArrowColor(arrow) {
     ? '/icons/down-green.png'
     : '/icons/down-purple.png';
 }
-document.querySelector('.treeFolder.currentFolder .arrowIcon').src = '/icons/down-green.png';
+const currentArrow = document.querySelector('.treeFolder.currentFolder .arrowIcon');
+if (currentArrow) {
+  currentArrow.src = '/icons/down-green.png';
+}
 
 
 tree.addEventListener('click', (e) => {
