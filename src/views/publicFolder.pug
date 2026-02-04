@@ -26,7 +26,7 @@ body(class='dashboardBody bgBody')
         if(files)
           each file in files
             div(class='node file')
-              a(href=`/preview/${file.id}`)
+              a(href=`/public/file/${file.publicUrl.hash}`)
                 if (file.extension === 'jpg' || file.extension === 'png' || file.extension === 'webp')
                   img(src='/icons/image.png')
                 else
