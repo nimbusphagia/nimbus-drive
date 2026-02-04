@@ -44,3 +44,7 @@
 #nimbusLink {
   color: var(--softPink);
 }
+
+.error-list {
+  color: var(--Blue);
+}

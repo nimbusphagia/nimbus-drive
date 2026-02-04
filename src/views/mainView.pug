@@ -42,18 +42,20 @@ body(class='dashboardBody bgBody')
           button(type='button', class='shareBtn toolBtn btn') Share
       .mainContainer
         if(currentFolder.folders)
-          each child in currentFolder.folders
+          each folder in currentFolder.folders
             div(class='node folder')
-              a(href=`/drive/${child.id}`)
+              a(href=`/drive/${folder.id}`)
                 img(src='/icons/files.png')
-                p(class='nodeName')=child.name
+                p(class='nodeName')=folder.name
         if(currentFolder.files)
-          each child in currentFolder.files
+          each file in currentFolder.files
             div(class='node file')
-              a(href=`/preview/${child.id}`)
-                img(src='/icons/document(1).png')
-                p(class='nodeName')=child.name
-                .selectBlur 
+              a(href=`/preview/${file.id}`)
+                if (file.extension === 'jpg' || file.extension === 'png' || file.extension === 'webp')
+                  img(src='/icons/image.png')
+                else
+                  img(src='/icons/document.png')
+                p(class='nodeName')=trimTitle(file.name) + '.' + file.extension
   include partial/footer
   #curtain.invisible
     include partial/createFolder 
@@ -61,5 +63,7 @@ body(class='dashboardBody bgBody')
     include partial/shareFolder 
     include partial/deleteFolder 
     include partial/createFile 
+  include partial/loading
+  script(src='/scripts/utilities.js')
   script(src='/scripts/treeView.js')
   script(src='/scripts/mainForms.js')

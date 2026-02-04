@@ -12,12 +12,15 @@ body(class='previewBody')
           .title
             h1=file.name 
           .fileTools
-            a(href=``): img(src='/icons/download(2).png')
-
-        .file
-          if (file.extension === 'jpg' || file.extension === 'png' || file.extension === 'webp')
+            a(href=file.source , download=file.name , target="_blank"): img(src='/icons/download(2).png')
+        if (file.extension === 'jpg' || file.extension === 'png' || file.extension === 'webp')
+          .file
             img(src=file.source)
-          else
-            p Can't preview file
+        else
+          .previewFail
+            .blur
+            p=`Can't preview ${file.extension} files`
+            a(href=file.source , download=file.name, target='_blank') Click here to download
   include partial/footer
   #curtain.invisible
+    include partial/shareFile

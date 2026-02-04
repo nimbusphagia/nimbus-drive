@@ -13,7 +13,7 @@ export async function initializeUser(username, password) {
         password_hash: passwordHash,
       }
     });
-    await tx.prisma.publicUrl.create({
+    const publicUrl = await tx.publicUrl.create({
       data: {
         hash: nanoid(16),
         type: 'FOLDER'
@@ -23,7 +23,8 @@ export async function initializeUser(username, password) {
     await tx.folder.create({
       data: {
         ownerId: user.id,
-        name: "My drive"
+        name: "My drive",
+        publicUrlId: publicUrl.id,
       }
     });
 
@@ -99,6 +100,7 @@ export async function getFolderById(folderId, userId) {
           name: true,
           id: true,
           source: true,
+          extension: true,
           publicUrl: { select: { hash: true } }
         }
       },
@@ -126,6 +128,7 @@ export async function getRootFolder(userId) {
           name: true,
           id: true,
           source: true,
+          extension: true,
           publicUrl: { select: { hash: true } }
         }
       },
@@ -225,22 +228,21 @@ export async function getFolderByPublic(publicHash) {
           select: {
             name: true,
             id: true,
-            publicUrl: {
-              select: { hash: true },
-            },
-          },
+            publicUrl: { select: { hash: true } }
+          }
         },
         files: {
           select: {
             name: true,
             id: true,
-            publicUrl: {
-              select: { hash: true },
-            },
-          },
+            source: true,
+            extension: true,
+            publicUrl: { select: { hash: true } }
+          }
         },
-        publicUrl: true,
-      }
+        publicUrl: { select: { hash: true } },
+      },
+
     });
   }
   throw new Error('Invalid url');

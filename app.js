@@ -21,10 +21,14 @@ import publicRouter from './src/routes/publicRouter.js';
 const app = express();
 const _dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(_dirname, 'public'), {
-  // Production prop
-  //maxAge: '1d'
-}));
+
+const staticOptions = {};
+
+if (process.env.NODE_ENV === 'PROD') {
+  staticOptions.maxAge = '7d';
+}
+
+app.use(express.static(path.join(_dirname, 'public'), staticOptions));
 app.set('views', path.join(_dirname, 'src/views'));
 app.set('view engine', 'pug');
 

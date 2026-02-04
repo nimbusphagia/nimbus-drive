@@ -48,3 +48,7 @@
 .formButtons {
   gap: 20px;
 }
+
+.error-list {
+  color: var(--Yellow);
+}

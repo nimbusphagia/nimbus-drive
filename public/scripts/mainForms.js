@@ -5,10 +5,10 @@ const editFolderForm = document.querySelector('.editFolder');
 const shareFolderForm = document.querySelector('.shareFolder');
 const deleteFolderForm = document.querySelector('.deleteFolder');
 const createFileForm = document.querySelector('.createFile');
-
-function toggleCurtain() {
-  curtain.classList.toggle('invisible');
-  curtain.classList.toggle('flex');
+const loadingScreen = document.querySelector('.loadingScreen');
+function toggleCurtain(div = curtain) {
+  div.classList.toggle('invisible');
+  div.classList.toggle('flex');
 }
 
 function toggleForm(form) {
@@ -52,4 +52,6 @@ curtain.addEventListener('click', (e) => {
   if (e.target !== curtain) return;
   hideAll();
 })
-
+document.body.addEventListener('submit', () => {
+  toggleCurtain(loadingScreen);
+})

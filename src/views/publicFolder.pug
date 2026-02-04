@@ -17,18 +17,20 @@ body(class='dashboardBody bgBody')
             h1= folder.name
         .mainTools
       .mainContainer
-        if(folder.folders)
-          each child in folder.folders
+        if(folders)
+          each child in folders
             div(class='node folder')
               a(href=publicFolder(child))
                 img(src='/icons/files.png')
                 p(class='nodeName')=child.name
-        if(folder.files)
-          each child in folder.files
+        if(files)
+          each file in files
             div(class='node file')
-              a(href=publicFile(child))
-                img(src='/icons/document(1).png')
-                p(class='nodeName')=child.name
-                .selectBlur 
+              a(href=`/preview/${file.id}`)
+                if (file.extension === 'jpg' || file.extension === 'png' || file.extension === 'webp')
+                  img(src='/icons/image.png')
+                else
+                  img(src='/icons/document.png')
+                p(class='nodeName')=trimTitle(file.name) + '.' + file.extension
   include partial/footer
   

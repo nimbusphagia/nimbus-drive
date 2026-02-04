@@ -8,13 +8,13 @@ body(class='dashboardBody bgBody')
     form(class="form loginForm", method="POST")
       div(class='formTitle')
         h1(id='logo') Nimbus Drive
-      include partial/errors
       .formItem 
         label(for='username') Username :
         input(id='username', type='text', name="username", maxlength="30" required) 
       .formItem 
         label(for='password') Password :
         input(id='password', type='password', name="password", maxlength="35" required) 
+      include partial/errors
       div(class='formButtons')
         button(type='submit', class='createBtn btn') Login 
         div(class='formRedirect')

@@ -2,6 +2,42 @@ import { createFile, createFolder, createPublicUrl, deleteFile, deleteFolder, ge
 import { buildTree, getBaseUrl } from "../lib/utilites.js";
 import mime from 'mime-types';
 
+function truncateSentence(sentence, maxLength = 15, chunkSize = 10) {
+  const extensionMatch = sentence.match(/(\.[a-z0-9]+)$/i);
+
+  let baseName = sentence;
+  let extension = '';
+  let wasTruncated = false;
+
+  if (extensionMatch) {
+    extension = extensionMatch[0];
+    baseName = sentence.slice(0, -extension.length);
+  }
+
+  if (baseName.length > maxLength) {
+    baseName = baseName.slice(0, maxLength);
+    wasTruncated = true;
+  }
+
+  // Only insert wrap points if it's still long enough to matter
+  if (baseName.length > chunkSize) {
+    const ZWSP = String.fromCharCode(8203);
+    baseName = baseName.replace(
+      new RegExp(`(.{${chunkSize}})`, 'g'),
+      `$1${ZWSP}`
+    );
+  }
+
+  if (wasTruncated) {
+    baseName += '..';
+  }
+
+  return baseName;
+}
+
+
+
+
 
 export async function dashboardGet(req, res) {
   try {
@@ -22,7 +58,7 @@ export async function dashboardGet(req, res) {
     }
     if (!currentFolder) throw new Error("Folder doesn't exist");
     const publicPath = `${baseUrl}/public/folder/${currentFolder.publicUrl.hash}`;
-    return res.render('mainView', { folders: tree, currentFolder, publicUrl: publicPath });
+    return res.render('mainView', { folders: tree, currentFolder, publicUrl: publicPath, trimTitle: truncateSentence });
 
   } catch (err) {
     console.error(err);

@@ -7,6 +7,7 @@ const storage = new CloudinaryStorage({
   params: {
     folder: "user_uploads",
     resource_type: "auto", // images, videos, pdfs, zips, etc
+    use_filename: true,
   },
 });
 

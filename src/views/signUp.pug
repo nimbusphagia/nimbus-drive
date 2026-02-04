@@ -8,7 +8,6 @@ body(class='dashboardBody bgBody')
     form(class="form signUpForm", method="POST")
       .formTitle
         h1(id='logo') Nimbus Drive
-      include partial/errors
       .formItem 
         label(for='username') Username :
         input(id='username', type='text', name="username", maxlength="30" required) 
@@ -19,6 +18,7 @@ body(class='dashboardBody bgBody')
         label(for='confirm') Confirm password :
         input(id='confirm', type='password', name="confirmPassword", maxlength="35" required) 
       div(class='formButtons')
+        include partial/errors
         button(type='submit', class='createBtn btn') Create account 
         div(class='formRedirect')
           p Already have an account? 

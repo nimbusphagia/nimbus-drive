@@ -1,0 +1,48 @@
+/*General*/
+#curtain {
+  justify-content: center;
+  align-items: center;
+}
+
+#curtain .form {
+  padding: 20px 30px;
+  border-radius: 8px;
+  margin-bottom: 500px;
+}
+
+#curtain .formItem {
+  margin: 0 15px;
+  grid-template-columns: 25% 75%;
+  align-items: center;
+}
+
+#curtain h1 {
+  font-family: var(--f3);
+  font-size: 30px;
+}
+
+/* Share file */
+#curtain .shareFile {
+  padding-bottom: 50px;
+  gap: 30px;
+}
+
+.shareFile h1,
+.shareFile label,
+.shareFile input {
+  color: var(--Yellow);
+}
+
+/* Delete file */
+#curtain .deleteFile {
+  padding-bottom: 25px;
+  align-items: center;
+  gap: 15px;
+}
+
+.deleteFile h1,
+.deleteFile p,
+.deleteFile button {
+  color: var(--Red);
+  border-color: var(--Red);
+}
