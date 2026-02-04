@@ -68,11 +68,13 @@ export async function dashboardGet(req, res) {
 
 export async function dashboardPost(req, res) {
   const { action } = req.params;
-  const userId = req.user.id;
-  const folderId = Number(req.params.folderId);
-  const { name } = req.body;
+
 
   try {
+    if (!action) return res.redirect('/drive/0');
+    const userId = req.user.id;
+    const folderId = Number(req.params.folderId);
+    const { name } = req.body;
     if (action === 'createFolder') {
       const publicUrl = await createPublicUrl('FOLDER');
       await createFolder(userId, folderId, name, publicUrl.id);
