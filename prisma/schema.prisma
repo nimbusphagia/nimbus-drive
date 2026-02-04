@@ -48,15 +48,15 @@ model Folder {
 }
 
 model File {
-  id        Int     @id @default(autoincrement())
-  folder    Folder  @relation(fields: [folderId], references: [id], onDelete: Cascade)
-  folderId  Int
-  owner     User    @relation(fields: [ownerId], references: [id])
-  ownerId   Int
-  name      String
-  extension String?
-  url       String
-
+  id          Int        @id @default(autoincrement())
+  folder      Folder     @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  folderId    Int
+  owner       User       @relation(fields: [ownerId], references: [id])
+  ownerId     Int
+  name        String
+  extension   String?
+  source      String
+  cloudId     String
   publicUrl   PublicUrl? @relation(fields: [publicUrlId], references: [id])
   publicUrlId Int?       @unique
 

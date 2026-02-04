@@ -12,11 +12,15 @@ body(class='previewBody')
           .title
             h1=file.name 
           .fileTools
-            a(href=``): img(src='/icons/download(2).png')
-            a(href=``): img(src='/icons/external-link-fill.png')
-            a(href=``): img(src='/icons/bin.png')
+            a(href=`${file.source}` , download='true', target='_blank'): img(src='/icons/download(2).png')
+            button(class='fakeBtn'): img(src='/icons/external-link-fill.png')
+            form(class='fakeForm', method='post', action=`/preview/${file.id}/deleteFile`)
+              button(type='submit', class='fakeBtn'): img(src='/icons/bin.png')
         .file
-          img(src='/icons/1-kanagawa.jpg')
+          if (file.extension === 'jpg' || file.extension === 'png' || file.extension === 'webp')
+            img(src=file.source)
+          else
+            p Can't preview file
   include partial/footer
   #curtain.invisible
     include partial/shareFile 

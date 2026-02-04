@@ -1,7 +1,8 @@
 import { Router } from "express";
-import { previewGet } from "../controllers/previewController.js";
+import { previewGet, previewPost } from "../controllers/previewController.js";
 
 const previewRouter = new Router();
 previewRouter.get('/preview/:fileId', previewGet);
+previewRouter.post('/preview/:fileId/:action', previewPost);
 
 export default previewRouter;

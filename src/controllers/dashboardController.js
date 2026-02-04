@@ -1,5 +1,6 @@
-import { createFile, createFolder, createPublicUrl, deleteFolder, getAllFiles, getFolderById, getRootFolder, updateFolder } from "../../db/queries.js";
+import { createFile, createFolder, createPublicUrl, deleteFile, deleteFolder, getAllFiles, getFileById, getFolderById, getRootFolder, updateFolder } from "../../db/queries.js";
 import { buildTree, getBaseUrl } from "../lib/utilites.js";
+import mime from 'mime-types';
 
 
 export async function dashboardGet(req, res) {
@@ -20,11 +21,11 @@ export async function dashboardGet(req, res) {
       currentFolder = await getFolderById(folderId, userId);
     }
     if (!currentFolder) throw new Error("Folder doesn't exist");
-    const publicUrl = `${baseUrl}/public/folder/${currentFolder.publicUrl.hash}`;
-    return res.render('mainView', { folders: tree, currentFolder, publicUrl });
+    const publicPath = `${baseUrl}/public/folder/${currentFolder.publicUrl.hash}`;
+    return res.render('mainView', { folders: tree, currentFolder, publicUrl: publicPath });
 
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return res.render('404', { errMsg: err.message });
   }
 }
@@ -41,12 +42,6 @@ export async function dashboardPost(req, res) {
       await createFolder(userId, folderId, name, publicUrl.id);
       return res.redirect(`/drive/${folderId}`);
     }
-    if (action === 'createFile') {
-      const fileInput = req.file;
-      const publicUrl = await createPublicUrl('FILE');
-      const file = await createFile(folderId, userId, req.file.originalname, 'emptyurl', publicUrl.id);
-      return res.redirect(`/drive/${folderId}`);
-    }
     if (action === 'editFolder') {
       const newName = req.body.name;
       await updateFolder(folderId, userId, newName);
@@ -54,11 +49,33 @@ export async function dashboardPost(req, res) {
     }
     if (action === 'deleteFolder') {
       await deleteFolder(folderId, userId);
+      // ADD delete all cloudinary urls
       return res.redirect(`/drive/0`);
     }
     return res.redirect('/drive/0')
   } catch (error) {
     console.error(error);
     return res.render('404', { errMsg: error.message });
+  }
+}
+export async function dashboardUpload(req, res) {
+  const userId = req.user.id;
+  const folderId = Number(req.params.folderId);
+  try {
+    // Cloudinary
+    const fileInput = req.file;
+    if (!fileInput) throw new Error('No file uploaded');
+    const fileUrl = req.file.path;
+    const cloudId = req.file.filename;
+    const extension = mime.extension(req.file.mimetype);
+    // Public Route
+    const publicUrl = await createPublicUrl('FILE');
+
+    await createFile(folderId, userId, req.file.originalname, extension, fileUrl, cloudId, publicUrl.id);
+    return res.redirect(`/drive/${folderId}`);
+  } catch (error) {
+    console.error(error);
+    return res.render('404', { errMsg: error.message });
+
   }
 }

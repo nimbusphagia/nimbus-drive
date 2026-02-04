@@ -13,6 +13,12 @@ export async function initializeUser(username, password) {
         password_hash: passwordHash,
       }
     });
+    await tx.prisma.publicUrl.create({
+      data: {
+        hash: nanoid(16),
+        type: 'FOLDER'
+      }
+    });
 
     await tx.folder.create({
       data: {
@@ -92,6 +98,7 @@ export async function getFolderById(folderId, userId) {
         select: {
           name: true,
           id: true,
+          source: true,
           publicUrl: { select: { hash: true } }
         }
       },
@@ -118,6 +125,7 @@ export async function getRootFolder(userId) {
         select: {
           name: true,
           id: true,
+          source: true,
           publicUrl: { select: { hash: true } }
         }
       },
@@ -158,14 +166,17 @@ export async function getFileById(fileId, userId) {
           id: true,
         }
       },
+      folderId: true,
       name: true,
+      source: true,
+      cloudId: true,
+      extension: true,
       publicUrl: {
         select: {
           hash: true,
         },
       },
       createdAt: true,
-      folder: true,
     }
   });
   return file;
@@ -177,18 +188,22 @@ export async function getFileByFolder(folderId, userId) {
   return file;
 }
 
-export async function createFile(folderId, userId, name, url = 'emptyUrl', publicUrlId) {
+export async function createFile(folderId, userId, name, extension, source, cloudId, publicUrlId) {
   return await prisma.file.create({
     data: {
       folderId,
       ownerId: userId,
       name,
-      url,
+      source,
+      cloudId,
+      extension,
       publicUrlId,
     },
   });
 }
-
+export async function deleteFile(fileId, userId) {
+  await prisma.file.delete({ where: { id: fileId, ownerId: userId } })
+}
 // Public Link
 
 export async function getFileByPublic(publicHash) {

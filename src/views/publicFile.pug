@@ -15,6 +15,9 @@ body(class='previewBody')
             a(href=``): img(src='/icons/download(2).png')
 
         .file
-          img(src='/icons/1-kanagawa.jpg')
+          if (file.extension === 'jpg' || file.extension === 'png' || file.extension === 'webp')
+            img(src=file.source)
+          else
+            p Can't preview file
   include partial/footer
   #curtain.invisible
