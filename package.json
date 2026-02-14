@@ -7,7 +7,8 @@
     "start": "npx prisma migrate deploy && node app.js",
     "postinstall": "prisma generate",
     "dev": "node --watch app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "prisma migrate deploy"
   },
   "repository": {
     "type": "git",
